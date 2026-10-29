@@ -28,6 +28,11 @@ class ServerValidationTests(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertIn(b"Cogniflux", res.data)
 
+    def test_project_zip_served(self):
+        res = self.client.get("/project.zip")
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(res.headers.get("Content-Type", "").startswith("application/zip"))
+
     def test_models_rejects_bad_url(self):
         res = self.client.post("/api/models", json={"base_url": "ftp://x", "api_key": ""})
         self.assertEqual(res.status_code, 400)

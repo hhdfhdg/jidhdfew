@@ -378,6 +378,11 @@ def extract_document():
 
 # ---------- раздача фронтенда ----------
 
+@app.get("/project.zip")
+def download_project_zip():
+    return send_from_directory(BASE_DIR, "project.zip", as_attachment=True)
+
+
 @app.get("/")
 def index():
     return send_from_directory(FRONTEND_DIR, "index.html")
